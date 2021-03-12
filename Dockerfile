@@ -25,6 +25,9 @@ COPY .docker/nginx.conf /etc/nginx/nginx.conf
 COPY .docker/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
 COPY .docker/php.ini /etc/php8/conf.d/custom.ini
 
+# set port 80 page
+COPY index.php /var/www/html/index.php
+
 # Configure supervisord
 COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -56,7 +59,7 @@ WORKDIR $WORKDIR
 #USER nobody
 
 # Expose the port nginx is reachable on
-EXPOSE 8080
+EXPOSE 8080 80
 
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
