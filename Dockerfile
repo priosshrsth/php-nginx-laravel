@@ -28,6 +28,9 @@ COPY .docker/php.ini /etc/php8/conf.d/custom.ini
 # set port 80 page
 COPY index.php /var/www/html/index.php
 
+RUN nginx -c /etc/nginx/nginx.conf -t
+
+
 # Configure supervisord
 COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
